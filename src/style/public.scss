@@ -1,0 +1,59 @@
+@function torem($px) {
+  @return $px / 200px * 1rem;
+}
+body{
+  font-family: 'PingFang SC', 'STHeitiSC-Light', 'Helvetica-Light','Microsoft yahei', arial, sans-serif;
+}
+$main-color : #FA4A11 ;
+$light-color:#fff;
+$silver-color:#ccc;
+.active{
+  color:$main-color;
+}
+.disabled {
+  pointer-events: none;
+}
+*{
+  box-sizing:border-box;
+}
+.text-center{
+  text-align:center;
+}
+.half{
+  width:50%;
+}
+.full{
+  width:100%;
+}
+.bold{
+  font-weight: bold;
+}
+.fw-normal{
+  font-weight:normal;
+}
+// 字体大小设置
+.f22{font-size:11px}
+.f24{font-size:12px}
+.f26{font-size:13px}
+.f28{font-size:14px}
+.f30{font-size:15px}
+.f32{font-size:16px}
+.f34{font-size:17px}
+.f36{font-size:18px}
+.f38{font-size:19px}
+.f40{font-size:20px}
+.f42{font-size:21px}
+.f44{font-size:22px}
+.f46{font-size:23px}
+.f48{font-size:24px}
+
+@media (-webkit-min-device-pixel-ratio: 1.5),(min-device-pixel-ratio: 1.5){
+  %solid-1px{
+    transform: scaleY(0.7);
+  }
+}
+@media (-webkit-min-device-pixel-ratio: 2),(min-device-pixel-ratio: 2){
+  %solid-1px{
+    transform: scaleY(0.5);
+  }
+}
