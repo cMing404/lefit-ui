@@ -1,5 +1,5 @@
 <template>
-  <div @click="linkTo" class="le-cell f30" :class="getClass" v-show="rendered">
+  <div @click="linkTo" @touchstart="isTouchmove=true" @touchend="isTouchmove=false" class="le-cell f30" :style="`background-color:${isTouchmove?'rgba(0,0,0,.3)':'#fff'}`" :class="getClass" v-show="rendered">
     <section>
       <slot name="icon"></slot>
       <h5 class="fw-normal">{{title}}</h5>
@@ -19,7 +19,8 @@
     name: 'cell',
     data () {
       return {
-        rendered: false
+        rendered: false,
+        isTouchmove: false
       }
     },
     props: {
@@ -58,6 +59,8 @@
       margin:0;
       padding:0;
     }
+    -webkit-touch-callout:none;
+    user-select:none;
     &:not(:last-child):after{
       content: '';
       display:block;
@@ -104,6 +107,7 @@
         input{
           outline:none;
           border:none;
+          background:transparent;
           color:rgba(0,0,0,0.6);
         }
       }

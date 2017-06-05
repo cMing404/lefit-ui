@@ -4,17 +4,14 @@
   </div>
 </template>
 <script>
-  import leButton from '../button/'
   export default {
-    name: 'button-group',
-    components: {
-      leButton
-    }
+    name: 'button-group'
   }
 </script>
 <style lang="scss">
   .le-btn-group{
     display:flex;
+    justify-content:center;
     .btn:not(:first-of-type){
       margin-left:5px;
     }

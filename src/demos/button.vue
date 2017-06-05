@@ -5,7 +5,10 @@
     <le-button>点击发挥好</le-button>
     <le-button disabled>取消</le-button>
     <le-button-group>
-      <le-button half>好的</le-button>
+      <le-button half>确定</le-button>
+      <le-button half disabled>取消</le-button>
+    </le-button-group>
+    <le-button-group>
       <le-button half>好的</le-button>
     </le-button-group>
   </div>

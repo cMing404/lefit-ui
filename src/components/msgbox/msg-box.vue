@@ -5,15 +5,17 @@
       <img v-show="img" :src="img" alt="">
       <h3>{{tit}}</h3>
       <p>{{msg}}</p>
-      <div class="btns">
-        <span v-show="no" @click="cancel">取消</span>
-        <span @click="confirm" class="confirm">确定</span>
-      </div>
+      <le-button-group center>
+        <le-button v-show="no" @click.native="cancel" disabled half>取消</le-button>
+        <le-button class="confirm" @click.native="confirm" half>确定</le-button>
+      </le-button-group>
     </section>
   </div> 
    </transition>
 </template>
 <script>
+  import LeButtonGroup from '../../components/button-group/'
+  import LeButton from '../../components/button'
   export default {
     data () {
       return {
@@ -43,6 +45,10 @@
         this.yes = null
         this.no = null
       }
+    },
+    components: {
+      LeButton,
+      LeButtonGroup
     }
   }
 </script>

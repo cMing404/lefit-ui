@@ -4,6 +4,9 @@
 body{
   font-family: 'PingFang SC', 'STHeitiSC-Light', 'Helvetica-Light','Microsoft yahei', arial, sans-serif;
 }
+*{
+  -webkit-tap-highlight-color:transparent;
+}
 $main-color : #FA4A11 ;
 $light-color:#fff;
 $silver-color:#ccc;
