@@ -1,5 +1,5 @@
 <template>
-  <div @click="linkTo" @touchstart="isTouchmove=true" @touchend="isTouchmove=false" class="le-cell f30" :style="`background-color:${isTouchmove?'rgba(0,0,0,.3)':'#fff'}`" :class="getClass" v-show="rendered">
+  <div @click="linkTo" @touchstart="isTouchmove=true" @touchend="isTouchmove=false" class="le-cell f30" :style="`background-color:${isTouchmove?'rgba(0,0,0,.1)':'#fff'}`" :class="getClass" v-show="rendered">
     <section>
       <slot name="icon"></slot>
       <h5 class="fw-normal">{{title}}</h5>

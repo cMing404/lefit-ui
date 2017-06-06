@@ -3,10 +3,16 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import MsgBox from '@/components/msgbox'
+import MsgBox from '@/plugins/msgbox'
+import LefitImgLoad from '@/plugins/img-load'
+import AlloyFinger from 'alloyfinger'
+import AlloyFingerVue from 'alloyfinger/vue/alloy_finger.vue'
 Vue.config.productionTip = false
-
+Vue.use(AlloyFingerVue, {
+  AlloyFinger
+})
 Vue.use(MsgBox)
+Vue.use(LefitImgLoad)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

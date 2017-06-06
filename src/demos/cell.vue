@@ -12,7 +12,11 @@
     <le-cell title="标题">
       <input type="text" slot="center">
     </le-cell>
-    <le-cell title="打发打发" is-link :to="'http://www.baidu.com'">
+    <le-cell title="手机号">
+      <input type="number" slot="center">
+    </le-cell>
+
+    <le-cell title="点我跳转" is-link :to="'http://www.baidu.com'">
     </le-cell>
   </div>
 </template>

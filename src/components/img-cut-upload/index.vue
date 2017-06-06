@@ -1,8 +1,8 @@
 <template>
-  <div id="img_cut">
+  <div class="img_cut_upload">
     <input ref="ipt_upload" type="file" @change="imgChange" value="">
-    <div id="crop_mask" v-show="clipShow">
-      <canvas id="canvas" v-finger:pinch="pinch" v-finger:multipoint-end="multipointEnd" v-finger:press-move="pressMove"></canvas>
+    <div class="crop_mask" v-show="clipShow">
+      <canvas ref="canvas" v-finger:pinch="pinch" v-finger:multipoint-end="multipointEnd" v-finger:press-move="pressMove"></canvas>
       <div class="btns">
         <span @click="no">取消</span>
         <span @click="rotate">旋转</span>
@@ -37,12 +37,17 @@
         rectPos: {}, // 裁剪矩形坐标信息
         imgPos: {}, // 图片坐标信息
         isTouch: false, // 是否在触摸屏幕
-        output: 3, // 1 七牛坐标 2 base64 3 file类型
         EXIF: window.EXIF,
         preventHandle: function (e) {
           e.preventDefault()
         }
       }
+    },
+    props: {
+      output: {
+        type: Number,
+        default: 1
+      } // 1 七牛坐标 + base64 2 七牛坐标 + file类型
     },
     methods: {
       imgChange (e) {
@@ -127,7 +132,7 @@
           this.drawWidth = this.drawHeight = this.imgWidth
           this.scale = 1
         }
-        this.canvas = document.getElementById('canvas')
+        this.canvas = this.$refs.canvas
         this.ctx = this.canvas.getContext('2d')
         this.canvas.width = this.winWidth
         this.canvas.height = this.winHeight
@@ -305,27 +310,25 @@
       },
       yes () {
         let clipPos = this.getClipPos()
+        let originCanvas = document.createElement('canvas')
+        let originCanvasCtx = originCanvas.getContext('2d')
+        originCanvas.width = this.imgObj.width
+        originCanvas.height = this.imgObj.height
+        originCanvasCtx.drawImage(this.imgObj, 0, 0, this.imgObj.width, this.imgObj.height)
+        let copyCanvas = document.createElement('canvas')
+        let copyCanvasCtx = copyCanvas.getContext('2d')
+        copyCanvas.width = clipPos.w
+        copyCanvas.height = clipPos.h
+        copyCanvasCtx.rect(0, 0, copyCanvas.width, copyCanvas.height)
+        let imgData = originCanvasCtx.getImageData(clipPos.offsetX, clipPos.offsetY, clipPos.w, clipPos.h)
+        copyCanvasCtx.putImageData(imgData, 0, 0)
+        copyCanvasCtx.clip()
         if (this.output === 1) {
-          this.$emit('submit', clipPos, this.base64)
+          this.$emit('submit', clipPos, copyCanvas.toDataURL('image/jpeg', 0.7))
         } else if (this.output === 2) {
-          // 待完整
-        } else if (this.output === 3) {
-          let originCanvas = document.createElement('canvas')
-          let originCanvasCtx = originCanvas.getContext('2d')
-          originCanvas.width = this.imgObj.width
-          originCanvas.height = this.imgObj.height
-          originCanvasCtx.drawImage(this.imgObj, 0, 0, this.imgObj.width, this.imgObj.height)
-          let copyCanvas = document.createElement('canvas')
-          let copyCanvasCtx = copyCanvas.getContext('2d')
-          copyCanvas.width = clipPos.w
-          copyCanvas.height = clipPos.h
-          copyCanvasCtx.rect(0, 0, copyCanvas.width, copyCanvas.height)
-          let imgData = originCanvasCtx.getImageData(clipPos.offsetX, clipPos.offsetY, clipPos.w, clipPos.h)
-          copyCanvasCtx.putImageData(imgData, 0, 0)
-          copyCanvasCtx.clip()
-          this.$emit('submit', this.convertBase64UrlToBlob(copyCanvas.toDataURL('image/jpeg', 0.7)))
-          this.$refs.ipt_upload.value = ''
+          this.$emit('submit', clipPos, this.convertBase64UrlToBlob(copyCanvas.toDataURL('image/jpeg', 0.7)))
         }
+        this.$refs.ipt_upload.value = ''
         this.clipShow = false
         document.body.removeEventListener('touchmove', this.preventHandle)
       },
@@ -342,9 +345,8 @@
   }
 </script>
 <style lang="scss">
-  @import '../css/public';
   // 简单的样式 自己在父组件中修改为宜
-  #img_cut{
+  .img_cut_upload{
     width:100%;
     height:100%;
     >input{
@@ -353,7 +355,7 @@
       opacity:0;
     }
   }
-  #crop_mask{
+  .crop_mask{
     position:fixed;
     top:0;
     left:0;
