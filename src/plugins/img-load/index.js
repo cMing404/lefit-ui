@@ -1,6 +1,7 @@
 import err from '../../assets/lefit-img-load/img_err_s.png'
 import loading from '../../assets/lefit-img-load/logo-placehodel.png'
 const placeImgSrc = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAApJREFUCNdjYAAAAAIAAeIhvDMAAAAASUVORK5CYII='
+let originStyle = ''
 let pluginObj = {
   options: {
     scale: 0.4
@@ -23,7 +24,12 @@ let pluginObj = {
     let img = new Image()
     img.src = binding.value
     img.onload = function () {
-      el.src = this.src
+      if (el.nodeName === 'IMG') {
+        el.src = this.src
+      } else {
+        el.style.background = originStyle
+        el.style.backgroundImage = `url(${this.src})`
+      }
       return
     }
     img.onerror = () => {
@@ -38,10 +44,13 @@ export default {
     let H = window.screen.height
     Vue.directive('lefit-load', {
       bind (el) {
-        pluginObj.lefitImgLoad(el)
         el.src = placeImgSrc
       },
       inserted: (el, binding) => {
+        if (el.nodeName !== 'IMG') {
+          originStyle = getComputedStyle(el).background
+        }
+        pluginObj.lefitImgLoad(el)
         pluginObj.imgLoad(el, binding)
       },
       componentUpdated (el, binding) {
