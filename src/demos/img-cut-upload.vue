@@ -32,11 +32,11 @@
       }
     },
     methods: {
-      getBase64 (pos, base64) {
+      getBase64 (base64, pos) {
         this.imgPos1 = JSON.stringify(pos)
         this.imgBase64 = base64
       },
-      getBlob (pos, blob) {
+      getBlob (blob, pos) {
         this.imgPos2 = JSON.stringify(pos)
         console.log(blob)
       }

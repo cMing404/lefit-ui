@@ -325,9 +325,11 @@
         copyCanvasCtx.putImageData(imgData, 0, 0)
         copyCanvasCtx.clip()
         if (this.output === 1) {
-          this.$emit('submit', clipPos, copyCanvas.toDataURL('image/jpeg', 0.7))
+          this.$emit('submit', copyCanvas.toDataURL('image/jpeg', 0.7), clipPos)
         } else if (this.output === 2) {
-          this.$emit('submit', clipPos, this.convertBase64UrlToBlob(copyCanvas.toDataURL('image/jpeg', 0.7)))
+          copyCanvas.toBlob((blob) => {
+            this.$emit('submit', blob, clipPos)
+          })
         }
         this.$refs.ipt_upload.value = ''
         this.clipShow = false
@@ -376,8 +378,11 @@
       position:absolute;
       bottom:0;
       left:0;
+      display:flex;
+      justify-content:space-between;
       >span{
         color:#fff;
+        padding: 5px 10px;
       }
     }
   }
