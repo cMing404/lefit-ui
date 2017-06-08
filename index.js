@@ -1,5 +1,15 @@
-import MsgBox from './src/components/msgbox/msg-box.js'
+import LeMsgBox from './src/plugins/msgbox/'
+import LeImgLoad from './src/plugins/img-load/'
+import LeCell from './src/components/cell/'
+import LeButton from './src/components/button/'
+import LeButtonGroup from './src/components/button-group/'
+import LeImgCutUpload from './src/components/img-cut-upload/'
 
-export default {
-  MsgBox
+export {
+  LeMsgBox,
+  LeImgLoad,
+  LeCell,
+  LeButton,
+  LeButtonGroup,
+  LeImgCutUpload
 }

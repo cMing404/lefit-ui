@@ -10,7 +10,7 @@
       <img width="100%" :src="imgBase64" alt="">
     </div>
     <div class="upload">
-      点击我进行图片裁剪 => 获取裁剪坐标+图片base64
+      点击我进行图片裁剪 => 获取裁剪坐标+blob对象
       <img-cut-upload :output="2" @submit="getBlob"></img-cut-upload>
     </div>
     <div>

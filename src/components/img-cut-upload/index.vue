@@ -13,6 +13,7 @@
 </template>
 <script>
   export default {
+    name: 'le-img-cut-upload',
     data () {
       return {
         file: null, // 文件对象

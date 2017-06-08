@@ -5,7 +5,7 @@
 </template>
 <script>
   export default {
-    name: 'button',
+    name: 'le-button',
     props: {
       text: String,
       leStyle: Object

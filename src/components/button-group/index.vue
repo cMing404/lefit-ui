@@ -5,7 +5,7 @@
 </template>
 <script>
   export default {
-    name: 'button-group'
+    name: 'le-button-group'
   }
 </script>
 <style lang="scss">

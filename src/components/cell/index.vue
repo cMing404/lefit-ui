@@ -16,7 +16,7 @@
 <script>
   import ulit from '../../ulit'
   export default {
-    name: 'cell',
+    name: 'le-cell',
     data () {
       return {
         rendered: false,
