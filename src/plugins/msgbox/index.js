@@ -8,6 +8,7 @@ MsgBox.install = function (Vue, options) {
   })
   document.body.appendChild(tpl.$el)
   Vue.prototype.$MsgBox = (options) => {
+    tpl.reset()
     if (options && Object.keys(options).length) {
       ['msg', 'img', 'tit', 'yes', 'no'].forEach(prop => {
         if (options[prop]) {
